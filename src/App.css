@@ -827,3 +827,150 @@ h1 {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ================================
+   MASSYL.AI — MOTION & GLOW
+================================ */
+
+/* Smooth entrance */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-glow {
+  0%, 100% {
+    box-shadow: 0 0 18px #b6f36b12;
+  }
+  50% {
+    box-shadow: 0 0 34px #b6f36b30;
+  }
+}
+
+@keyframes orbit-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px #b6f36b88;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 22px #b6f36bcc;
+  }
+}
+
+/* Hero content appears smoothly */
+.hero-copy {
+  animation: fade-up 850ms ease-out both;
+}
+
+.visual-panel {
+  animation: fade-up 1000ms ease-out both;
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.visual-panel:hover {
+  border-color: #a99bff88;
+  box-shadow: 0 0 45px #a99bff12;
+}
+
+/* Gentle movement in the AI illustration */
+.core {
+  animation: soft-glow 4s ease-in-out infinite,
+             float 5s ease-in-out infinite;
+}
+
+.orbit-one {
+  animation: orbit-rotate 18s linear infinite;
+}
+
+.orbit-two {
+  animation: orbit-rotate 28s linear infinite reverse;
+}
+
+.orbit-three {
+  animation: orbit-rotate 38s linear infinite;
+}
+
+.orbit-point {
+  animation: pulse-dot 3s ease-in-out infinite;
+}
+
+.point-two {
+  animation-delay: 1s;
+}
+
+.point-three {
+  animation-delay: 2s;
+}
+
+/* Buttons feel more responsive */
+.button,
+.nav-cta {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease,
+    border-color 220ms ease;
+}
+
+.button-primary:hover {
+  box-shadow: 0 0 25px #b6f36b35;
+}
+
+.button-secondary:hover,
+.nav-cta:hover {
+  box-shadow: 0 0 20px #a99bff18;
+}
+
+/* Project cards respond to the cursor */
+.project-card {
+  transition:
+    transform 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: #a99bff99;
+  box-shadow: 0 12px 35px #08090d20;
+}
+
+/* Keep animations comfortable for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
