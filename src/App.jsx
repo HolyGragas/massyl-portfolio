@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const GITHUB = 'https://github.com/HolyGragas'
@@ -76,6 +77,59 @@ const skills = [
   'Git & GitHub',
 ]
 
+// Random 0s and 1s that appear, drift up and fade out over the hero picture
+function BinaryField() {
+  const [bits, setBits] = useState([])
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let nextId = 0
+    const makeBit = () => ({
+      id: nextId++,
+      value: Math.random() < 0.5 ? '0' : '1',
+      x: Math.random() * 94 + 3,
+      y: Math.random() * 80 + 8,
+      size: 10 + Math.random() * 12,
+      duration: 1.8 + Math.random() * 2.4,
+      green: Math.random() < 0.35,
+    })
+
+    if (reduced) {
+      setBits(Array.from({ length: 18 }, makeBit))
+      return undefined
+    }
+
+    const timer = setInterval(() => {
+      const now = Date.now()
+      setBits((current) => [
+        ...current.filter((bit) => now - bit.born < bit.duration * 1000),
+        { ...makeBit(), born: now },
+        ...(Math.random() < 0.5 ? [{ ...makeBit(), born: now }] : []),
+      ])
+    }, 140)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="binary-field" aria-hidden="true">
+      {bits.map((bit) => (
+        <span
+          key={bit.id}
+          className={bit.green ? 'bit bit-green' : 'bit'}
+          style={{
+            left: `${bit.x}%`,
+            top: `${bit.y}%`,
+            fontSize: `${bit.size}px`,
+            animationDuration: `${bit.duration}s`,
+          }}
+        >
+          {bit.value}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function App() {
   return (
     <div className="site-shell">
@@ -141,16 +195,21 @@ function App() {
               <span>INTELLIGENCE ENGINE</span>
             </div>
 
+            <BinaryField />
+
             <div className="orbital">
-              <div className="orbit orbit-one" />
-              <div className="orbit orbit-two" />
-              <div className="orbit orbit-three" />
+              <div className="orbit orbit-one">
+                <span className="orbit-point point-one" />
+              </div>
+              <div className="orbit orbit-two">
+                <span className="orbit-point point-two" />
+              </div>
+              <div className="orbit orbit-three">
+                <span className="orbit-point point-three" />
+              </div>
               <div className="core">
                 <span>AI</span>
               </div>
-              <span className="orbit-point point-one" />
-              <span className="orbit-point point-two" />
-              <span className="orbit-point point-three" />
             </div>
 
             <div className="visual-caption">
