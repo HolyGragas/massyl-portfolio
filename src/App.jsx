@@ -1,6 +1,8 @@
 
 import './App.css'
 
+const GITHUB = 'https://github.com/HolyGragas'
+
 const projects = [
   {
     number: '01',
@@ -9,16 +11,57 @@ const projects = [
     description:
       'A local AI assistant designed for university teaching, combining document retrieval with large language models to provide context-aware answers.',
     tags: ['Python', 'RAG', 'Ollama', 'Embeddings', 'Vector DB'],
-    status: 'MASTER THESIS',
+    status: 'IN PROGRESS',
   },
   {
     number: '02',
-    category: 'MACHINE LEARNING',
-    title: 'Machine Learning Lab',
+    category: 'GENERATIVE AI · WEB APP',
+    title: 'SnapChef',
     description:
-      'A space for machine learning experiments, model evaluation, and applied AI projects. More projects will be added as they are completed.',
-    tags: ['Python', 'ML', 'Experiments'],
-    status: 'MORE TO COME',
+      'A web app that turns what is in your kitchen into recipes. It reads your ingredients, fridge photos and available utensils, then suggests recipes you can cook right now using Claude vision and generation.',
+    tags: ['Python', 'FastAPI', 'Claude API', 'Vision', 'Docker'],
+    status: 'WEB APP',
+    url: `${GITHUB}/snapchef`,
+  },
+  {
+    number: '03',
+    category: 'COMPUTER VISION',
+    title: 'YOLO Jamming Detection',
+    description:
+      'A YOLOv8 object detection pipeline that spots jamming signals in signal screenshots, from labelling a custom dataset in Label Studio to training and prediction.',
+    tags: ['Python', 'YOLOv8', 'Object Detection', 'Label Studio'],
+    status: 'DEEP LEARNING',
+    url: `${GITHUB}/yolo-jamming-detection`,
+  },
+  {
+    number: '04',
+    category: 'MACHINE LEARNING',
+    title: 'Machine Learning Notebooks',
+    description:
+      'Hands-on machine learning notebooks, starting with linear regression projects on housing and e-commerce customer data.',
+    tags: ['Python', 'Jupyter', 'scikit-learn', 'pandas'],
+    status: 'NOTEBOOKS',
+    url: `${GITHUB}/ML`,
+  },
+  {
+    number: '05',
+    category: 'DEVOPS · CONTAINERS',
+    title: 'Docker Course Labs',
+    description:
+      'Labs and notes covering containers, networking, volumes, Dockerfiles, Docker Compose with PostgreSQL, registries, and a final containerised website.',
+    tags: ['Docker', 'Compose', 'Flask', 'PostgreSQL', 'PowerShell'],
+    status: 'LEARNING',
+    url: `${GITHUB}/docker-course`,
+  },
+  {
+    number: '06',
+    category: 'DATA ENGINEERING',
+    title: 'Data Warehouse',
+    description:
+      'A semester project designing a data warehouse: ER schemas, dimensional tables, and analytical SQL queries.',
+    tags: ['SQL', 'Data Modeling', 'ER Diagrams'],
+    status: 'UNIVERSITY',
+    url: `${GITHUB}/DataWarehouse`,
   },
 ]
 
@@ -180,7 +223,14 @@ function App() {
 
           <div className="project-grid">
             {projects.map((project) => (
-              <article className="project-card" key={project.number}>
+              <a
+                className="project-card"
+                key={project.number}
+                href={project.url}
+                target={project.url ? '_blank' : undefined}
+                rel={project.url ? 'noreferrer' : undefined}
+                aria-disabled={project.url ? undefined : true}
+              >
                 <div className="project-card-top">
                   <span className="project-number">{project.number}</span>
                   <span className="project-status">{project.status}</span>
@@ -199,16 +249,20 @@ function App() {
                 </div>
 
                 <div className="project-card-bottom">
-                  <span>TECHNICAL PROJECT</span>
-                  <span className="project-arrow">↗</span>
+                  <span>{project.url ? 'VIEW ON GITHUB' : 'REPOSITORY COMING SOON'}</span>
+                  {project.url && <span className="project-arrow">↗</span>}
                 </div>
-              </article>
+              </a>
             ))}
           </div>
-          <p className="project-note">
-            Project descriptions will be refined as implementation,
-            testing, and evaluation progress.
-          </p>
+          <a
+            className="button button-secondary projects-all"
+            href={`${GITHUB}?tab=repositories`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            See all repositories on GitHub <span>↗</span>
+          </a>
         </section>
 
         <section className="section content-section" id="skills">
@@ -259,7 +313,7 @@ function App() {
 
             <a
               className="button button-primary"
-              href="https://github.com/HolyGragas"
+              href={GITHUB}
               target="_blank"
               rel="noreferrer"
             >
